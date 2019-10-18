@@ -19,18 +19,27 @@ test('Input renders without error', () => {
 });
 
 describe('state controlled input field', () => {
+  let mockSetCurrentGuess: jest.Mock<any, any> = jest.fn();
+  let wrapper: ShallowWrapper;
+
+  beforeEach(() => {
+    mockSetCurrentGuess.mockClear();
+    React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
+    wrapper = setup();
+  });
 
   test('state updates with value of input box upon change', () => {
-    const mockSetCurrentGuess: jest.Mock<any, any> = jest.fn();
-    React.useState = jest.fn(() => ['', mockSetCurrentGuess]);
-
-    const wrapper = setup();
     const inputBox = findByTestAttr(wrapper, 'input-box');
-
     const inputWord = 'train';
     const mockEvent = { target: { value: inputWord } };
     inputBox.simulate('change', mockEvent);
-
     expect(mockSetCurrentGuess).toHaveBeenCalledWith(inputWord);
   });
+
+  test('field is cleared upon submit button click', () => {
+    const submitButton = findByTestAttr(wrapper, 'submit-button');
+    submitButton.simulate('click', { preventDefault() {}});
+    expect(mockSetCurrentGuess).toHaveBeenCalledWith('');
+  });
+
 });
