@@ -18,7 +18,7 @@ const setup = (secretWord: string = 'party'): ReactWrapper => {
 
   const mockUseReducer = jest.fn()
     .mockReturnValue([
-      { secretWord },
+      { secretWord, language: 'en' },
       jest.fn()
     ]);
 
@@ -50,7 +50,7 @@ describe('getSecretWord calls', () => {
 });
 
 describe('secretWord is not null', () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   beforeEach(() => {
     wrapper = setup('party');
@@ -68,10 +68,10 @@ describe('secretWord is not null', () => {
 });
 
 describe('secretWord is null', () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   beforeEach(() => {
-    wrapper = setup(null);
+    wrapper = setup(undefined);
   });
 
   test('does not render app when secretWord is null', () => {

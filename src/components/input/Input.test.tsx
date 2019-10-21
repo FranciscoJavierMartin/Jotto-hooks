@@ -8,7 +8,7 @@ import Input from './Input';
  * @param {string} secreteWord - Word to guess 
  * @returns { ShallowWrapper }
  */
-const setup = (secretWord:string = 'party'): ShallowWrapper => {
+const setup = (secretWord:string = 'party', language: string = 'en'): ShallowWrapper => {
   return shallow(<Input secretWord={secretWord}/>);
 }
 
@@ -43,3 +43,19 @@ describe('state controlled input field', () => {
   });
 
 });
+
+describe('languagePicker', () => {
+
+  test('correctly renders submit string in english', () => {
+    const wrapper = setup(undefined,'');
+    const submitButton = findByTestAttr(wrapper, 'submit-button');
+    expect(submitButton.text()).toBe('Submit');
+  });
+
+  test('correctly renders congrats string in emoji', () => {
+    const wrapper = setup(undefined, 'emoji');
+    const submitButton = findByTestAttr(wrapper, 'submit-button');
+    expect(submitButton.text()).toBe('🚀');
+  });
+
+})

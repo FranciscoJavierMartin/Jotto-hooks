@@ -1,5 +1,7 @@
 import React from 'react';
 import { IGuessedWord } from '../../common/interfaces';
+import LanguageContext from '../../contexts/LanguageContext';
+import stringsModule from '../../helpers/strings';
 
 export interface IGuessedWordsProps {
   guessedWords: IGuessedWord[];
@@ -14,18 +16,20 @@ const GuessedWords = (props: IGuessedWordsProps) => {
       </tr>
     )
   );
+  
+  const language = React.useContext(LanguageContext);
 
   let contents =
     props.guessedWords.length === 0 ? (
-      <span data-test='guess-instructions'>Try to guess the secret word!</span>
+      <span data-test='guess-instructions'>{stringsModule.getStringByLanguage(language, 'guessPrompt')}</span>
     ) : (
       <div data-test='guessed-words'>
-        <h3>Guessed words</h3>
+        <h3>{stringsModule.getStringByLanguage(language, 'guessedWords')}</h3>
         <table className="table table-sm">
           <thead className="thead-ligth">
             <tr>
-              <th>Guess</th>
-              <th>Matching letters</th>
+              <th>{stringsModule.getStringByLanguage(language, 'guessColumnHeader')}</th>
+              <th>{stringsModule.getStringByLanguage(language, 'matchingLettersColumnHeader')}</th>
             </tr>
           </thead>
           <tbody>{guessedWordsRows}</tbody>

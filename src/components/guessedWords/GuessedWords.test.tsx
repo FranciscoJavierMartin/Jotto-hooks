@@ -66,3 +66,21 @@ describe('if there are words guessed', () => {
     });
 
 });
+
+describe('', () => {
+    
+    test('correctly renders guess instructions string in English by default', () => {
+        const wrapper = setup({ guessedWords: []});
+        const guessInstructions = findByTestAttr(wrapper, 'guess-instructions');
+        expect(guessInstructions.text()).toBe('Try to guess the secret word!');
+    });
+
+    test('correctly renders guess instructions string in emoji', () => {
+        const mockUserContext = jest.fn().mockReturnValue('emoji');
+        React.useContext = mockUserContext;
+        const wrapper = setup({ guessedWords: []});
+        const guessInstructions = findByTestAttr(wrapper, 'guess-instructions');
+        expect(guessInstructions.text()).toBe('🤔🤫🔤');
+    });
+
+});
