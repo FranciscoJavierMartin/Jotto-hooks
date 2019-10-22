@@ -3,10 +3,6 @@ import LanguageContext from '../../contexts/LanguageContext';
 import SuccessContext from '../../contexts/SuccessContext';
 import stringsModule from '../../helpers/strings';
 
-/*export interface ICongratsProps {
-    success?: boolean;
-}*/
-
 /**
  * Functional react component for congratulary message
  * @function

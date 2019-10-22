@@ -4,19 +4,18 @@ import LanguageContext from '../../contexts/LanguageContext';
 import SuccessContext from '../../contexts/SuccessContext';
 import guessedWordsContext from '../../contexts/GuessedWordsContext';
 import { getLetterMatchCount } from '../../helpers';
-import GuessedWords from '../guessedWords/GuessedWords';
 
 interface IInputProps {
   secretWord: string;
 }
 
-const input = (props: IInputProps) => {
+const Input = (props: IInputProps) => {
   const [ currentGuess, setCurrentGuess ] = React.useState<string>('');
-  const [success, setSuccess] = SuccessContext.useSuccess();
-  const [guessedWords, setGuessedWords ] = guessedWordsContext.useGuessedWords();
-  const language = React.useContext(LanguageContext);
+  const [ success, setSuccess ] = SuccessContext.useSuccess();
+  const [ guessedWords, setGuessedWords ] = guessedWordsContext.useGuessedWords();
+  const language: string = React.useContext(LanguageContext);
   
-  return success ? null : (
+  return !!success ? null : (
     <div data-test="component-input">
       <form className="form-inline">
         <input
@@ -48,4 +47,4 @@ const input = (props: IInputProps) => {
   );
 }
 
-export default input;
+export default Input;

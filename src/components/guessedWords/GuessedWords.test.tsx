@@ -5,12 +5,6 @@ import GuessedWords from './GuessedWords';
 import { IGuessedWord } from '../../common/interfaces';
 import GuessedWordsContext from '../../contexts/GuessedWordsContext';
 
-/*const defaultProps: IGuessedWordsProps = {
-    guessedWords: [
-        { guessedWord: 'train', letterMatchCount: 3}
-    ],
-};*/
-
 /**
  * Factory function to create a ShallowWrapper for the GuessedWords component.
  * @function setup
@@ -70,7 +64,7 @@ describe('if there are words guessed', () => {
 
 });
 
-describe('', () => {
+describe('languagePicker', () => {
     
     test('correctly renders guess instructions string in English by default', () => {
         const wrapper = setup();

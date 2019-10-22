@@ -7,16 +7,17 @@ import hookActions from './actions/hookActions';
 import LanguageContext from './contexts/LanguageContext';
 import successContext from './contexts/SuccessContext';
 import GuessedWordsContext from './contexts/GuessedWordsContext';
-
+import { IGlobalState, IGlobalAction } from './commonInterfaces';
+import ActionTypes from './actions/actionsTypes';
 /**
  * reducer to update state
- * @param { object } state - existing state
- * @param { object } action - contains 'type' and 'payload' properties for the
+ * @param { IGlobalState } state - existing state
+ * @param { IGlobalAction } action - contains 'type' and 'payload' properties for the
  *                            state update for example:
  *                            { type: "setSecretWord", payload: "party" }
- * @returns { object } - new state
+ * @returns { IGlobalState } - new state
  */
-function reducer(state, action) {
+function reducer(state: IGlobalState, action: IGlobalAction): IGlobalState {
   let newState;
 
   switch (action.type) {
@@ -33,6 +34,7 @@ function reducer(state, action) {
 
   return newState;
 }
+
 const App = () => {
   const [state, dispatch] = React.useReducer(reducer, {
     secretWord: null,
@@ -40,17 +42,11 @@ const App = () => {
   });
 
   const setSecretWord = (secretWord: string) =>
-    dispatch({
-      type: 'setSecretWord',
-      payload: secretWord
-    });
+    dispatch({type: ActionTypes.SET_SECRET_WORD, payload: secretWord})
 
   const setLanguage = (language: string) =>
-    dispatch({
-      type: 'setLanguage',
-      payload: language
-    });
-
+    dispatch({type: ActionTypes.SET_LANGUAGE, payload: language})
+  
   React.useEffect(() => {
     hookActions.getSecretWord(setSecretWord);
   }, []);

@@ -4,12 +4,8 @@ import LanguageContext from '../../contexts/LanguageContext';
 import stringsModule from '../../helpers/strings';
 import GuessedWordsContext from '../../contexts/GuessedWordsContext';
 
-/*export interface IGuessedWordsProps {
-  guessedWords: IGuessedWord[];
-}*/
-
 const GuessedWords = () => {
-  const guessedWords = GuessedWordsContext.useGuessedWords();
+  const [guessedWords] = GuessedWordsContext.useGuessedWords();
   const guessedWordsRows = guessedWords.map(
     (word: IGuessedWord, index: number) => (
       <tr data-test='guessed-word' key={index}>

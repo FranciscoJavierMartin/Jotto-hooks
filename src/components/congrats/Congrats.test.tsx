@@ -1,11 +1,9 @@
 import React from 'react';
-import { shallow, ShallowWrapper, mount, ReactWrapper } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import Congrats from './Congrats';
 import LanguageContext from '../../contexts/LanguageContext';
-import { findByTestAttr } from '../../../test/testUitls';
+import { findByTestAttrReactWrapper } from '../../../test/testUitls';
 import SuccessContext from '../../contexts/SuccessContext';
-
-
 
 /**
  * Factory function to create a ShallowWrapper for the Congrats component.
@@ -37,18 +35,18 @@ describe('LanguagePicker', () => {
 
 test('renders without error', () => {
     const wrapper = setup();
-    const component = findByTestAttr(wrapper, 'component-congrats');
+    const component = findByTestAttrReactWrapper(wrapper, 'component-congrats');
     expect(component.length).toBe(1);
 });
 
 test('renders no text when `success` is false', () => {
     const wrapper = setup(false);
-    const component = findByTestAttr(wrapper, 'component-congrats');
+    const component = findByTestAttrReactWrapper(wrapper, 'component-congrats');
     expect(component.text()).toBe('');
 });
 
 test('renders non-empty congrats message when sucess is true', () => {
     const wrapper = setup(true);
-    const message = findByTestAttr(wrapper, 'component-congrats');
+    const message = findByTestAttrReactWrapper(wrapper, 'component-congrats');
     expect(message.text().length).not.toBe(0);
 });

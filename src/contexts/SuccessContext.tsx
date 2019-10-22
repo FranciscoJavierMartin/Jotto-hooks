@@ -1,12 +1,12 @@
 import React from 'react';
 
-const successContext = React.createContext(false);
+const successContext = React.createContext(undefined);
 
 /**
  * @function useSuccess
  * @returns {array} successContext value, which is a state of [value, setter]
  */
-function useSuccess(){
+function useSuccess(): any[]{
   const context = React.useContext(successContext);
 
   if(!context){
@@ -16,19 +16,15 @@ function useSuccess(){
   return context;
 }
 
-interface ISuccessProviderProps {
-
-}
-
 /**
  * @function SuccessProvider
- * @param {ISuccessProviderProps} props - props to pass through from declared component
+ * @param {object} props - props to pass through from declared component
  * @returns {JSX.Element} Provider component
  */
-function SuccessProvider(props: ISuccessProviderProps){
+function SuccessProvider(props: any){
   const [success, setSuccess] = React.useState(false);
 
-  const value: boolean = React.useMemo(() => [success, setSuccess], [success]) as any;
+  const value = React.useMemo(() => [success, setSuccess], [success]) as any[];
 
   return <successContext.Provider value={value} {...props}/>
 }

@@ -1,5 +1,6 @@
 import moxios from 'moxios';
 import { getSecretWord } from './hookActions';
+import { DEFAULT_SECRET_WORD } from './../constants';
 
 describe('moxios tests', () => {
   beforeEach(() => {
@@ -12,7 +13,7 @@ describe('moxios tests', () => {
   });
 
   test('calls the getSecretWord callback on axios response', async () => {
-    const secretWord = 'party';
+    const secretWord = DEFAULT_SECRET_WORD;
 
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();

@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow, ShallowWrapper, mount, ReactWrapper } from 'enzyme';
-import { findByTestAttr } from '../../../test/testUitls';
+import { mount, ReactWrapper } from 'enzyme';
+import { findByTestAttrReactWrapper } from '../../../test/testUitls';
 import Input from './Input';
 import LanguageContext from '../../contexts/LanguageContext';
 import SuccessContext from '../../contexts/SuccessContext';
@@ -9,7 +9,7 @@ import GuessedWordsContext from '../../contexts/GuessedWordsContext';
 /**
  * Setup function for app component
  * @param {string} secreteWord - Word to guess 
- * @returns { ShallowWrapper }
+ * @returns { ReactWrapper }
  */
 const setup = (secretWord:string = 'party', language: string = 'en', success: boolean = false): ReactWrapper => {
   return mount(
@@ -24,14 +24,14 @@ const setup = (secretWord:string = 'party', language: string = 'en', success: bo
 }
 
 test('Input renders without error', () => {
-  const wrapper: ShallowWrapper = setup();
-  const inputComponent = findByTestAttr(wrapper, 'component-input');
+  const wrapper: ReactWrapper = setup();
+  const inputComponent = findByTestAttrReactWrapper(wrapper, 'component-input');
   expect(inputComponent.length).toBe(1);
 });
 
 describe('state controlled input field', () => {
   let mockSetCurrentGuess: jest.Mock<any, any> = jest.fn();
-  let wrapper: ShallowWrapper;
+  let wrapper: ReactWrapper;
 
   beforeEach(() => {
     mockSetCurrentGuess.mockClear();
@@ -40,7 +40,7 @@ describe('state controlled input field', () => {
   });
 
   test('state updates with value of input box upon change', () => {
-    const inputBox = findByTestAttr(wrapper, 'input-box');
+    const inputBox = findByTestAttrReactWrapper(wrapper, 'input-box');
     const inputWord = 'train';
     const mockEvent = { target: { value: inputWord } };
     inputBox.simulate('change', mockEvent);
@@ -48,7 +48,7 @@ describe('state controlled input field', () => {
   });
 
   test('field is cleared upon submit button click', () => {
-    const submitButton = findByTestAttr(wrapper, 'submit-button');
+    const submitButton = findByTestAttrReactWrapper(wrapper, 'submit-button');
     submitButton.simulate('click', { preventDefault() {}});
     expect(mockSetCurrentGuess).toHaveBeenCalledWith('');
   });
@@ -59,13 +59,13 @@ describe('languagePicker', () => {
 
   test('correctly renders submit string in english', () => {
     const wrapper = setup(undefined,'');
-    const submitButton = findByTestAttr(wrapper, 'submit-button');
+    const submitButton = findByTestAttrReactWrapper(wrapper, 'submit-button');
     expect(submitButton.text()).toBe('Submit');
   });
 
   test('correctly renders congrats string in emoji', () => {
     const wrapper = setup(undefined, 'emoji');
-    const submitButton = findByTestAttr(wrapper, 'submit-button');
+    const submitButton = findByTestAttrReactWrapper(wrapper, 'submit-button');
     expect(submitButton.text()).toBe('🚀');
   });
 
