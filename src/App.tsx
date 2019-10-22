@@ -5,6 +5,8 @@ import LanguagePicker from './components/languagePicker/LanguagePicker';
 import Input from './components/input/Input';
 import hookActions from './actions/hookActions';
 import LanguageContext from './contexts/LanguageContext';
+import successContext from './contexts/SuccessContext';
+import GuessedWordsContext from './contexts/GuessedWordsContext';
 
 /**
  * reducer to update state
@@ -64,8 +66,14 @@ const App = () => {
     <div className='container' data-test='component-app'>
       <h1>Jotto</h1>
       <LanguageContext.Provider value={state.language}>
-        <LanguagePicker setLanguage={setLanguage}/>
-        <Input secretWord={state.secretWord} />
+        <LanguagePicker setLanguage={setLanguage} />
+        <GuessedWordsContext.GuessedWordsProvider>
+          <successContext.SuccessProvider>
+            <Congrats />
+            <Input secretWord={state.secretWord} />
+          </successContext.SuccessProvider>
+          <GuessedWords />
+        </GuessedWordsContext.GuessedWordsProvider>
       </LanguageContext.Provider>
     </div>
   );

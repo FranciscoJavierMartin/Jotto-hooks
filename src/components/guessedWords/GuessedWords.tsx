@@ -2,13 +2,15 @@ import React from 'react';
 import { IGuessedWord } from '../../common/interfaces';
 import LanguageContext from '../../contexts/LanguageContext';
 import stringsModule from '../../helpers/strings';
+import GuessedWordsContext from '../../contexts/GuessedWordsContext';
 
-export interface IGuessedWordsProps {
+/*export interface IGuessedWordsProps {
   guessedWords: IGuessedWord[];
-}
+}*/
 
-const GuessedWords = (props: IGuessedWordsProps) => {
-  const guessedWordsRows = props.guessedWords.map(
+const GuessedWords = () => {
+  const guessedWords = GuessedWordsContext.useGuessedWords();
+  const guessedWordsRows = guessedWords.map(
     (word: IGuessedWord, index: number) => (
       <tr data-test='guessed-word' key={index}>
         <td>{word.guessedWord}</td>
@@ -20,7 +22,7 @@ const GuessedWords = (props: IGuessedWordsProps) => {
   const language = React.useContext(LanguageContext);
 
   let contents =
-    props.guessedWords.length === 0 ? (
+    guessedWords.length === 0 ? (
       <span data-test='guess-instructions'>{stringsModule.getStringByLanguage(language, 'guessPrompt')}</span>
     ) : (
       <div data-test='guessed-words'>
